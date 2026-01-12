@@ -5,6 +5,12 @@ import entity.herbivore.*;
 import entity.predator.*;
 
 public class Fabrics {
+    private static final Fabrics fabric = new Fabrics();
+
+    public static Fabrics getFabric() {
+        return fabric;
+    }
+
     public Plant createPlant(){
         return new Plant();
     }

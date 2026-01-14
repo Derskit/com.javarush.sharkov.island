@@ -6,6 +6,8 @@ public class Eatable {
     int coordinateX;
     int coordinateY;
 
+    float weight;
+
     public int getX() {
         return coordinateX;
     }
@@ -16,6 +18,10 @@ public class Eatable {
         return type;
     }
 
+    public float getWeight() {
+        return weight;
+    }
+
     public void setX(int coordinateX) {
         this.coordinateX = coordinateX;
     }
@@ -24,5 +30,9 @@ public class Eatable {
     }
     public void setType(Enum type) {
         this.type = type;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
     }
 }

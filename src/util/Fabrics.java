@@ -4,6 +4,8 @@ import entity.Plant;
 import entity.herbivore.*;
 import entity.predator.*;
 
+import java.util.Arrays;
+
 public class Fabrics {
     private static final Fabrics fabric = new Fabrics();
 
@@ -24,10 +26,25 @@ public class Fabrics {
             case EAGLE -> predator = new Eagle();
             case BOA_CONSTRICTOR -> predator = new BoaConstrictor();
         }
+        predator.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][0]);
+        predator.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][0]);
+        predator.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][0]);
+        predator.setProbabilitiesOfEating((Object[]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][0]);
         predator.setType(type);
+
         return predator;
     }
     public Herbivores createHerbivores(HerbivoreType type){
+        Herbivores herbivores = getHerbivores(type);
+        herbivores.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][0]);
+        herbivores.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][0]);
+        herbivores.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][0]);
+        herbivores.setProbabilitiesOfEating((Object[]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][0]);
+        herbivores.setType(type);
+        return herbivores;
+    }
+
+    private static Herbivores getHerbivores(HerbivoreType type) {
         Herbivores herbivores = null;
 
         switch (type){
@@ -42,7 +59,6 @@ public class Fabrics {
             case BUFFALO -> herbivores = new Buffalo();
             case CATERPILLAR -> herbivores = new Caterpillar();
         }
-        herbivores.setType(type);
         return herbivores;
     }
 }

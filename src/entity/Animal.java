@@ -1,9 +1,14 @@
 package entity;
 
+import util.AddInMap;
+import config.Settings;
+
 public class Animal extends Eatable{
     int speed;
     float saturationWeight;
-    Object[] probabilitiesOfEating;
+    Object[][] probabilitiesOfEating;
+    int motionWithoutFood = 0;
+    int deathMotion = 3;
 
     public int getSpeed() {
         return speed;
@@ -11,7 +16,7 @@ public class Animal extends Eatable{
     public float getSaturationWeight() {
         return saturationWeight;
     }
-    public Object[] getProbabilitiesOfEating() {
+    public Object[][] getProbabilitiesOfEating() {
         return probabilitiesOfEating;
     }
 
@@ -21,12 +26,21 @@ public class Animal extends Eatable{
     public void setSaturationWeight(float saturationWeight) {
         this.saturationWeight = saturationWeight;
     }
-    public void setProbabilitiesOfEating(Object[] probabilitiesOfEating) {
+    public void setProbabilitiesOfEating(Object[][] probabilitiesOfEating) {
         this.probabilitiesOfEating = probabilitiesOfEating;
     }
 
-    public void eat(){}
-    public void reproduction(){}
-    public void move(){}
+    public void eat(){
+        //ArrayList arrayList = coordinates.getEatables();
+        for (int i = coordinates.getEatables().size(); i <= 0; i--) {
+
+        }
+    }
+    public void reproduction(){
+        if (coordinates.getQuantityEatables().get(type) < AddInMap.arrayToMap(Settings.maxEatables).get(type)){}
+    }
+    public void move(){
+
+    }
     public void death(){}
 }

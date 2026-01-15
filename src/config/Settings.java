@@ -1,12 +1,6 @@
-package util;
+package config;
 
-import entity.Animal;
-import entity.Eatable;
-import entity.Plant;
-import entity.herbivore.Buffalo;
 import entity.herbivore.HerbivoreType;
-import entity.herbivore.Horse;
-import entity.predator.Predator;
 import entity.predator.PredatorType;
 
 import java.util.HashMap;
@@ -15,13 +9,13 @@ import java.util.Map;
 import static entity.Plant.PlantType.PLANT;
 
 public class Settings {
-    public static int x = 1;
-    public static int y = 1;
+    public static int x = 3;
+    public static int y = 3;
 
     public static int minHerbivore = 10;
     public static int minPredator = 5;
 
-    static Object[][] maxEatables = {{PredatorType.WOLF,30},
+    public static Object[][] maxEatables = {{PredatorType.WOLF,30},
             {PredatorType.BOA_CONSTRICTOR, 30},
             {PredatorType.FOX, 30},
             {PredatorType.BEAR, 5},
@@ -69,9 +63,7 @@ public class Settings {
             {HerbivoreType.SHEEP, 3},
             {HerbivoreType.WILD_BOAR, 2},
             {HerbivoreType.BUFFALO, 3},
-            {HerbivoreType.DUCK, 4},
-            {HerbivoreType.CATERPILLAR, null},
-            {PLANT, null}};
+            {HerbivoreType.DUCK, 4}};
 
     public static Object[][] weights = {{PredatorType.WOLF,50f},
             {PredatorType.BOA_CONSTRICTOR, 15f},
@@ -103,17 +95,8 @@ public class Settings {
             {HerbivoreType.SHEEP, 15f},
             {HerbivoreType.WILD_BOAR, 50f},
             {HerbivoreType.BUFFALO, 100f},
-            {HerbivoreType.DUCK, 0.15f},
-            {HerbivoreType.CATERPILLAR, null},
-            {PLANT, null}};
+            {HerbivoreType.DUCK, 0.15f}};
 
-    public static Map<Enum, Integer> maxEatables(){
-        Map<Enum, Integer> map = new HashMap<>();
-        for (Object[] row : maxEatables){
-            map.put((Enum) row[0], (Integer) row[1]);
-        }
-        return map;
-    }
     public static Map<Enum, Integer> createEatables(){
         Map<Enum, Integer> map = new HashMap<>();
         for (Object[] row : maxEatables){

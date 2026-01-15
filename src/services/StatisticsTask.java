@@ -1,17 +1,22 @@
 package services;
 
-import entity.Plant;
 import entity.island.Island;
-import entity.island.Location;
-import util.AddInMap;
-import util.Fabrics;
-import util.Settings;
+import config.Settings;
 
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StatisticsTask implements Runnable{
+
     @Override
     public void run() {
-        System.out.println(Island.getLocations()[0][0].quantityEatables.toString());
+        Map<Enum, Integer> map = Settings.createEatables();
+        for (int i = 0; i < Settings.x; i++) {
+            for (int j = 0; j < Settings.y; j++) {
+                Island.getLocations()[i][j].getQuantityEatables().forEach((k,v) -> map.merge(k,v,Integer::sum));
+            }
+        }
+        System.out.println(Island.motion + "" + map.toString());
+        Island.motion += 1;
     }
 }

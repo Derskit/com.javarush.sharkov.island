@@ -1,10 +1,15 @@
 package entity;
 
+import entity.island.Island;
+import entity.island.Location;
+
 public class Eatable {
     Enum type;
 
     int coordinateX;
     int coordinateY;
+
+    Location coordinates = Island.getLocations()[coordinateX][coordinateY];
 
     float weight;
 

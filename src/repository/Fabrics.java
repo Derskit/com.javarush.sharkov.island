@@ -1,10 +1,11 @@
-package util;
+package repository;
 
+import config.Settings;
 import entity.Plant;
 import entity.herbivore.*;
 import entity.predator.*;
-
-import java.util.Arrays;
+import util.ArraySearch;
+import util.ArraySort;
 
 public class Fabrics {
     private static final Fabrics fabric = new Fabrics();
@@ -26,20 +27,20 @@ public class Fabrics {
             case EAGLE -> predator = new Eagle();
             case BOA_CONSTRICTOR -> predator = new BoaConstrictor();
         }
-        predator.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][0]);
-        predator.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][0]);
-        predator.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][0]);
-        predator.setProbabilitiesOfEating((Object[]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][0]);
+        predator.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
+        predator.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
+        predator.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
+        predator.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
         predator.setType(type);
 
         return predator;
     }
     public Herbivores createHerbivores(HerbivoreType type){
         Herbivores herbivores = getHerbivores(type);
-        herbivores.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][0]);
-        herbivores.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][0]);
-        herbivores.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][0]);
-        herbivores.setProbabilitiesOfEating((Object[]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][0]);
+        herbivores.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
+        herbivores.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
+        herbivores.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
+        herbivores.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
         herbivores.setType(type);
         return herbivores;
     }

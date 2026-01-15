@@ -3,8 +3,7 @@ package app;
 import entity.island.Island;
 import services.PlantGrowthTask;
 import services.StatisticsTask;
-import util.Fabrics;
-import util.Settings;
+import config.Settings;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

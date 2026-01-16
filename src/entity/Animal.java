@@ -69,6 +69,7 @@ public class Animal extends Eatable{
         }
         if (maxMotionWithoutFood >= motionWithoutFood){
             isDead = true;
+            isLock = true;
         }
     }
     public void reproduction(){

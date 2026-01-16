@@ -30,22 +30,13 @@ public class Fabrics {
         predator.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
         predator.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
         predator.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
+        predator.setMaxMotionWithoutFood((int) Settings.maxMotionsWithoutFood[ArraySearch.externalIndex(Settings.maxMotionsWithoutFood, type, 0)][1]);
         predator.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
         predator.setType(type);
 
         return predator;
     }
     public Herbivores createHerbivores(HerbivoreType type){
-        Herbivores herbivores = getHerbivores(type);
-        herbivores.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
-        herbivores.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
-        herbivores.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
-        herbivores.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
-        herbivores.setType(type);
-        return herbivores;
-    }
-
-    private static Herbivores getHerbivores(HerbivoreType type) {
         Herbivores herbivores = null;
 
         switch (type){
@@ -60,6 +51,13 @@ public class Fabrics {
             case BUFFALO -> herbivores = new Buffalo();
             case CATERPILLAR -> herbivores = new Caterpillar();
         }
+        herbivores.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
+        herbivores.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
+        herbivores.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
+        herbivores.setMaxMotionWithoutFood((int) Settings.maxMotionsWithoutFood[ArraySearch.externalIndex(Settings.maxMotionsWithoutFood, type, 0)][1]);
+        herbivores.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
+        herbivores.setType(type);
+
         return herbivores;
     }
 }

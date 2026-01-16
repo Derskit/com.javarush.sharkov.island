@@ -15,6 +15,21 @@ public class Settings {
     public static int minHerbivore = 10;
     public static int minPredator = 5;
 
+    public static Object[][] maxMotionsWithoutFood = {{PredatorType.WOLF, 8},
+            {PredatorType.BOA_CONSTRICTOR, 10},
+            {PredatorType.FOX, 5},
+            {PredatorType.BEAR, 6},
+            {PredatorType.EAGLE, 4},
+            {HerbivoreType.HORSE, 7},
+            {HerbivoreType.DEER, 5},
+            {HerbivoreType.RABBIT, 4},
+            {HerbivoreType.MOUSE, 5},
+            {HerbivoreType.GOAT, 6},
+            {HerbivoreType.SHEEP, 7},
+            {HerbivoreType.WILD_BOAR, 5},
+            {HerbivoreType.BUFFALO, 9},
+            {HerbivoreType.DUCK, 3}};
+
     public static Object[][] maxEatables = {{PredatorType.WOLF,30},
             {PredatorType.BOA_CONSTRICTOR, 30},
             {PredatorType.FOX, 30},

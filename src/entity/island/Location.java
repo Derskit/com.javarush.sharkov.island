@@ -1,5 +1,6 @@
 package entity.island;
 
+import entity.Eatable;
 import entity.Plant;
 import util.AddInMap;
 import repository.Fabrics;
@@ -8,11 +9,11 @@ import config.Settings;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Location {
+public class Location{
 
-    public ArrayList eatables = new ArrayList<>();
+    public ArrayList<Eatable> eatables = new ArrayList<>();
 
-    public ArrayList getEatables() {
+    public ArrayList<Eatable> getEatables() {
         return eatables;
     }
 

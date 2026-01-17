@@ -1,13 +1,13 @@
 package util;
 
 public class ArraySort {
-    public static Object[][] sort(Object[][] array, int internalIndex){
+    public static Object[][] sort(Object[][] array, int internalIndex) {
         boolean needIteration = true;
         while (needIteration) {
             needIteration = false;
             for (int i = 1; i < array.length; i++) {
-                if ((int)array[i][internalIndex] < (int)array[i - 1][internalIndex]) {
-                    swap(array, i, i-1);
+                if ((int) array[i][internalIndex] < (int) array[i - 1][internalIndex]) {
+                    swap(array, i, i - 1);
                     needIteration = true;
                 }
             }

@@ -4,23 +4,26 @@ import config.Settings;
 import entity.Plant;
 import entity.herbivore.*;
 import entity.predator.*;
+import enums.HerbivoreType;
+import enums.PredatorType;
 import util.ArraySearch;
 import util.ArraySort;
 
-public class Fabrics {
+public final class Fabrics {
     private static final Fabrics fabric = new Fabrics();
 
     public static Fabrics getFabric() {
         return fabric;
     }
 
-    public Plant createPlant(){
+    public Plant createPlant() {
         return new Plant();
     }
-    public Predator createPredator(PredatorType type){
+
+    public Predator createPredator(PredatorType type) {
         Predator predator = null;
 
-        switch (type){
+        switch (type) {
             case FOX -> predator = new Fox();
             case BEAR -> predator = new Bear();
             case WOLF -> predator = new Wolf();
@@ -30,16 +33,17 @@ public class Fabrics {
         predator.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
         predator.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
         predator.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
-        predator.setMaxMotionWithoutFood((int) Settings.maxMotionsWithoutFood[ArraySearch.externalIndex(Settings.maxMotionsWithoutFood, type, 0)][1]);
+        predator.setMaxDayWithoutFood((int) Settings.maxDaysWithoutFood[ArraySearch.externalIndex(Settings.maxDaysWithoutFood, type, 0)][1]);
         predator.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
         predator.setType(type);
 
         return predator;
     }
-    public Herbivores createHerbivores(HerbivoreType type){
+
+    public Herbivores createHerbivores(HerbivoreType type) {
         Herbivores herbivores = null;
 
-        switch (type){
+        switch (type) {
             case DEER -> herbivores = new Deer();
             case DUCK -> herbivores = new Duck();
             case GOAT -> herbivores = new Goat();
@@ -54,7 +58,7 @@ public class Fabrics {
         herbivores.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
         herbivores.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
         herbivores.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
-        herbivores.setMaxMotionWithoutFood((int) Settings.maxMotionsWithoutFood[ArraySearch.externalIndex(Settings.maxMotionsWithoutFood, type, 0)][1]);
+        herbivores.setMaxDayWithoutFood((int) Settings.maxDaysWithoutFood[ArraySearch.externalIndex(Settings.maxDaysWithoutFood, type, 0)][1]);
         herbivores.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
         herbivores.setType(type);
 

@@ -1,4 +1,4 @@
-package entity.herbivore;
+package enums;
 
 import java.util.Random;
 
@@ -14,7 +14,8 @@ public enum HerbivoreType {
     DUCK,
     CATERPILLAR;
     private static final Random random = new Random();
-    public static HerbivoreType randomHerbivoreType(){
+
+    public static HerbivoreType randomHerbivoreType() {
         return values()[random.nextInt(values().length)];
     }
 }

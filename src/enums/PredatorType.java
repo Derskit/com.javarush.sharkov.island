@@ -1,4 +1,4 @@
-package entity.predator;
+package enums;
 
 
 import java.util.Random;
@@ -10,7 +10,8 @@ public enum PredatorType {
     BEAR,
     EAGLE;
     private static final Random random = new Random();
-    public static PredatorType randomPredatorType(){
+
+    public static PredatorType randomPredatorType() {
         return values()[random.nextInt(values().length)];
     }
 }

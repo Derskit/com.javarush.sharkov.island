@@ -1,9 +1,9 @@
 package entity;
 
-public class Plant extends Eatable{
+public class Plant implements Eatable {
     Enum type = PlantType.PLANT;
 
-    public enum PlantType{
+    public enum PlantType {
         PLANT
     }
 

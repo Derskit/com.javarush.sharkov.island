@@ -2,30 +2,33 @@ package entity.island;
 
 import entity.Eatable;
 import entity.Plant;
-import util.AddInMap;
+import util.MapLocation;
 import repository.Fabrics;
 import config.Settings;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Location{
+public class Location {
+    public boolean isLock = false;
 
-    public ArrayList<Eatable> eatables = new ArrayList<>();
+    private ArrayList<Eatable> eatables = new ArrayList<>();
 
     public ArrayList<Eatable> getEatables() {
         return eatables;
     }
 
-    public Map<Enum, Integer> quantityEatables = Settings.createEatables();
+    private Map<Enum, Integer> quantityEatables = Settings.createEatables();
 
     public Map<Enum, Integer> getQuantityEatables() {
         return quantityEatables;
     }
 
-    public void plantGrowth(){
-        Plant plant = Fabrics.getFabric().createPlant();
-        eatables.add(plant);
-        AddInMap.addInMap(plant, quantityEatables);
+    public void plantGrowth() {
+        if (quantityEatables.get(Plant.PlantType.PLANT) < MapLocation.arrayToMap(Settings.maxEatables).get(Plant.PlantType.PLANT)){
+            Plant plant = Fabrics.getFabric().createPlant();
+            eatables.add(plant);
+            MapLocation.addInMap(plant.getType(), quantityEatables);
+        }
     }
 }

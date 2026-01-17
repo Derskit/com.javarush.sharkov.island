@@ -1,7 +1,7 @@
 package config;
 
-import entity.herbivore.HerbivoreType;
-import entity.predator.PredatorType;
+import enums.HerbivoreType;
+import enums.PredatorType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,13 +9,14 @@ import java.util.Map;
 import static entity.Plant.PlantType.PLANT;
 
 public class Settings {
-    public static int x = 3;
-    public static int y = 3;
+    public static int xMapIsland = 10;
+    public static int yMapIsland = 10;
 
-    public static int minHerbivore = 10;
-    public static int minPredator = 5;
+    public static int minHerbivore = 100;
+    public static int minPredator = 50;
 
-    public static Object[][] maxMotionsWithoutFood = {{PredatorType.WOLF, 8},
+    public static Object[][] maxDaysWithoutFood =
+            {{PredatorType.WOLF, 8},
             {PredatorType.BOA_CONSTRICTOR, 10},
             {PredatorType.FOX, 5},
             {PredatorType.BEAR, 6},
@@ -30,7 +31,8 @@ public class Settings {
             {HerbivoreType.BUFFALO, 9},
             {HerbivoreType.DUCK, 3}};
 
-    public static Object[][] maxEatables = {{PredatorType.WOLF,30},
+    public static Object[][] maxEatables =
+            {{PredatorType.WOLF,30},
             {PredatorType.BOA_CONSTRICTOR, 30},
             {PredatorType.FOX, 30},
             {PredatorType.BEAR, 5},
@@ -47,23 +49,48 @@ public class Settings {
             {HerbivoreType.CATERPILLAR, 100},
             {PLANT, 200}};
 
-    public static Object[][] probabilitiesOfEating = {{PredatorType.WOLF, new Object[][] {{HerbivoreType.HORSE, 10}, {HerbivoreType.DEER, 15}, {HerbivoreType.RABBIT, 60},
-            {HerbivoreType.MOUSE, 80}, {HerbivoreType.GOAT, 60}, {HerbivoreType.SHEEP, 70}, {HerbivoreType.WILD_BOAR, 15}, {HerbivoreType.DUCK, 40}}},
-            {PredatorType.BOA_CONSTRICTOR, new Object[][] {{PredatorType.FOX, 15}, {HerbivoreType.RABBIT, 20}, {HerbivoreType.MOUSE, 40}, {HerbivoreType.DUCK, 10}}},
-            {PredatorType.FOX, new Object[][] {{HerbivoreType.RABBIT, 70}, {HerbivoreType.MOUSE, 90}, {HerbivoreType.DUCK, 60}, {HerbivoreType.CATERPILLAR, 40}}},
-            {PredatorType.BEAR, new Object[][] {{PredatorType.BOA_CONSTRICTOR, 80}, {HerbivoreType.HORSE, 40}, {HerbivoreType.DEER, 80}, {HerbivoreType.RABBIT, 80},
-            {HerbivoreType.MOUSE, 90}, {HerbivoreType.GOAT, 70}, {HerbivoreType.SHEEP, 70}, {HerbivoreType.WILD_BOAR, 50},{HerbivoreType.BUFFALO, 20}, {HerbivoreType.DUCK, 10}}},
-            {PredatorType.EAGLE, new Object[][] {{PredatorType.FOX, 10}, {HerbivoreType.RABBIT, 90}, {HerbivoreType.MOUSE, 90}, {HerbivoreType.DUCK, 80}}},
-            {HerbivoreType.HORSE, new Object[][] {{PLANT, 100}}},
-            {HerbivoreType.DEER, new Object[][] {{PLANT, 100}}},
-            {HerbivoreType.RABBIT, new Object[][] {{PLANT, 100}}},
-            {HerbivoreType.MOUSE, new Object[][] {{PLANT, 100}, {HerbivoreType.CATERPILLAR, 90}}},
-            {HerbivoreType.GOAT, new Object[][] {{PLANT, 100}}},
-            {HerbivoreType.SHEEP, new Object[][] {{PLANT, 100}}},
-            {HerbivoreType.WILD_BOAR, new Object[][] {{PLANT, 100}, {HerbivoreType.CATERPILLAR, 90}, {HerbivoreType.MOUSE, 90}}},
-            {HerbivoreType.BUFFALO, new Object[][] {{PLANT, 100}}},
-            {HerbivoreType.DUCK, new Object[][] {{PLANT, 100}, {HerbivoreType.CATERPILLAR, 90}}},
-            {HerbivoreType.CATERPILLAR, new Object[][] {{PLANT, 100}}}};
+    public static Object[][] probabilitiesOfEating =
+            {{PredatorType.WOLF, new Object[][]{
+                    {HerbivoreType.HORSE, 10}, {HerbivoreType.DEER, 15},
+                    {HerbivoreType.RABBIT, 60}, {HerbivoreType.MOUSE, 80},
+                    {HerbivoreType.GOAT, 60}, {HerbivoreType.SHEEP, 70},
+                    {HerbivoreType.WILD_BOAR, 15}, {HerbivoreType.DUCK, 40}}},
+            {PredatorType.BOA_CONSTRICTOR, new Object[][]{
+                    {PredatorType.FOX, 15}, {HerbivoreType.RABBIT, 20},
+                    {HerbivoreType.MOUSE, 40}, {HerbivoreType.DUCK, 10}}},
+            {PredatorType.FOX, new Object[][]{
+                    {HerbivoreType.RABBIT, 70}, {HerbivoreType.MOUSE, 90},
+                    {HerbivoreType.DUCK, 60}, {HerbivoreType.CATERPILLAR, 40}}},
+            {PredatorType.BEAR, new Object[][]{
+                    {PredatorType.BOA_CONSTRICTOR, 80}, {HerbivoreType.HORSE, 40},
+                    {HerbivoreType.DEER, 80}, {HerbivoreType.RABBIT, 80},
+                    {HerbivoreType.MOUSE, 90}, {HerbivoreType.GOAT, 70},
+                    {HerbivoreType.SHEEP, 70}, {HerbivoreType.WILD_BOAR, 50},
+                    {HerbivoreType.BUFFALO, 20}, {HerbivoreType.DUCK, 10}}},
+            {PredatorType.EAGLE, new Object[][]{
+                    {PredatorType.FOX, 10}, {HerbivoreType.RABBIT, 90},
+                    {HerbivoreType.MOUSE, 90}, {HerbivoreType.DUCK, 80}}},
+            {HerbivoreType.HORSE, new Object[][]{
+                    {PLANT, 100}}},
+            {HerbivoreType.DEER, new Object[][]{
+                    {PLANT, 100}}},
+            {HerbivoreType.RABBIT, new Object[][]{
+                    {PLANT, 100}}},
+            {HerbivoreType.MOUSE, new Object[][]{
+                    {PLANT, 100}, {HerbivoreType.CATERPILLAR, 90}}},
+            {HerbivoreType.GOAT, new Object[][]{
+                    {PLANT, 100}}},
+            {HerbivoreType.SHEEP, new Object[][]{
+                    {PLANT, 100}}},
+            {HerbivoreType.WILD_BOAR, new Object[][]{
+                    {PLANT, 100}, {HerbivoreType.CATERPILLAR, 90},
+                    {HerbivoreType.MOUSE, 90}}},
+            {HerbivoreType.BUFFALO, new Object[][]{
+                    {PLANT, 100}}},
+            {HerbivoreType.DUCK, new Object[][]{
+                    {PLANT, 100}, {HerbivoreType.CATERPILLAR, 90}}},
+            {HerbivoreType.CATERPILLAR, new Object[][]{
+                    {PLANT, 100}}}};
 
     public static Object[][] speeds = {{PredatorType.WOLF,3},
             {PredatorType.BOA_CONSTRICTOR, 1},
@@ -119,5 +146,4 @@ public class Settings {
         }
         return map;
     }
-
 }

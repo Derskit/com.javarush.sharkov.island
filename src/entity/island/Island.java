@@ -33,14 +33,12 @@ public class Island {
                 Animal entity = Fabrics.getFabric().createHerbivores(HerbivoreType.randomHerbivoreType());
                 entity.setX(rndX);
                 entity.setY(rndY);
-                MapLocation.addInMap(entity.getType(), locations[rndX][rndY].getQuantityEatables());
-                locations[rndX][rndY].getEatables().add(entity);
+                locations[rndX][rndY].getQuantityEatables().get(entity.getType()).add(entity);
             } else {
                 Animal entity = Fabrics.getFabric().createPredator(PredatorType.randomPredatorType());
                 entity.setX(rndX);
                 entity.setY(rndY);
-                MapLocation.addInMap(entity.getType(), locations[rndX][rndY].getQuantityEatables());
-                locations[rndX][rndY].getEatables().add(entity);
+                locations[rndX][rndY].getQuantityEatables().get(entity.getType()).add(entity);
             }
         }
     }

@@ -8,27 +8,20 @@ import config.Settings;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Location {
     public boolean isLock = false;
 
-    private ArrayList<Eatable> eatables = new ArrayList<>();
+    private Map<Enum, CopyOnWriteArrayList<Eatable>> quantityEatables = Settings.createEatables();
 
-    public ArrayList<Eatable> getEatables() {
-        return eatables;
-    }
-
-    private Map<Enum, Integer> quantityEatables = Settings.createEatables();
-
-    public Map<Enum, Integer> getQuantityEatables() {
+    public Map<Enum, CopyOnWriteArrayList<Eatable>> getQuantityEatables() {
         return quantityEatables;
     }
 
     public void plantGrowth() {
-        if (quantityEatables.get(Plant.PlantType.PLANT) < MapLocation.arrayToMap(Settings.maxEatables).get(Plant.PlantType.PLANT)){
-            Plant plant = Fabrics.getFabric().createPlant();
-            eatables.add(plant);
-            MapLocation.addInMap(plant.getType(), quantityEatables);
+        if (quantityEatables.get(Plant.PlantType.PLANT).size() < MapLocation.arrayToMap(Settings.maxEatables).get(Plant.PlantType.PLANT)){
+            quantityEatables.get(Plant.PlantType.PLANT).add(Fabrics.getFabric().createPlant());
         }
     }
 }

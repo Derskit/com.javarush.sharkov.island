@@ -64,30 +64,33 @@ public abstract class Animal implements Eatable {
 
     public void eat() {
         isEat = false;
-        for (int i = 0; i < Island.getLocations()[coordinateX][coordinateY].getEatables().size(); i++) {
-            for (int j = probabilitiesOfEating.length; j >= 0; j--) {
-                Eatable eatable = (Eatable) probabilitiesOfEating[j][0];
+        //System.out.println("eating");
+        for (int j = probabilitiesOfEating.length-1; j >= 0; j--) {
+            if (isEat) {
+                break;
+            }
+            Enum typeFood = (Enum) probabilitiesOfEating[j][0];
+            for (int i = 0; i < Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).size(); i++) {
                 int probabilityEat = (int) probabilitiesOfEating[j][1];
-                if (eatable.getType() == Island.getLocations()[coordinateX][coordinateY].getEatables().get(i).getType()) {
-                    if (probabilityEat > Random.getRandom(100)) {
-                        weightFood += Island.getLocations()[coordinateX][coordinateY].getEatables().get(i).getWeight();
-                        Island.getLocations()[coordinateX][coordinateY].getEatables().remove(i);
-                        if (weightFood >= saturationWeight) {
-                            dayWithoutFood = 0;
-                            weightFood = 0;
+                if (Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).size() > 0){
+                    if (typeFood.equals(Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).get(i).getType())) {
+                        if (100-probabilityEat <= Random.getRandom(100)) {
+                            weightFood += Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).get(i).getWeight();
+                            Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).remove(i);
+                            if (weightFood >= saturationWeight) {
+                                dayWithoutFood = 0;
+                                weightFood = 0;
+                            } else {
+                                dayWithoutFood += 1;
+                            }
+                            //System.out.println("eat");
                         } else {
                             dayWithoutFood += 1;
                         }
-                        System.out.println("eat");
-                    } else {
-                        dayWithoutFood += 1;
+                        isEat = true;
+                        break;
                     }
-                    isEat = true;
-                    break;
                 }
-            }
-            if (isEat) {
-                break;
             }
         }
         if (maxDayWithoutFood >= dayWithoutFood) {
@@ -96,26 +99,22 @@ public abstract class Animal implements Eatable {
     }
 
     public void reproduction() {
-        if (Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type) < MapLocation.arrayToMap(Settings.maxEatables).get(type) && dayWithoutFood <= maxDayWithoutFood / 2) {
-            for (Eatable eatable : Island.getLocations()[coordinateX][coordinateY].getEatables()) {
-                if (!eatable.getType().equals(Plant.PlantType.PLANT)) {
-                    Animal animal = (Animal) eatable;
-                    if (animal.dayWithoutFood <= animal.maxDayWithoutFood) {
-                        Island.getLocations()[coordinateX][coordinateY].isLock = true;
-                        Island.getLocations()[coordinateX][coordinateY].getEatables()
-                                .add(animal instanceof Predator ?
-                                        Fabrics.getFabric().createPredator(PredatorType.randomPredatorType()) :
-                                        Fabrics.getFabric().createHerbivores(HerbivoreType.randomHerbivoreType()));
-                        MapLocation.addInMap(type, Island.getLocations()[coordinateX][coordinateY].getQuantityEatables());
-                        Island.getLocations()[coordinateX][coordinateY].isLock = false;
-                        System.out.println("reproduction");
-                    }
-                }
-            }
+        //System.out.println("reproduction zxc");
+        if (Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type).size() < MapLocation.arrayToMap(Settings.maxEatables).get(type)
+            && Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type).size() > 1) {
+
+            Island.getLocations()[coordinateX][coordinateY].isLock = true;
+            Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type)
+                    .add(this instanceof Predator ?
+                            Fabrics.getFabric().createPredator((PredatorType) type) :
+                            Fabrics.getFabric().createHerbivores((HerbivoreType) type));
+            Island.getLocations()[coordinateX][coordinateY].isLock = false;
+            //System.out.println("reproduction");
         }
     }
 
     public void move() {
+        //System.out.println("moving");
         int motions = Random.getRandom(speed);
         Direction direction = Direction.rnd();
 
@@ -123,17 +122,15 @@ public abstract class Animal implements Eatable {
         int newY = coordinateY + direction.dirY * motions;
 
         if (!(newX < 0 || newX >= Settings.xMapIsland || newY < 0 || newY >= Settings.yMapIsland)
-            && Island.getLocations()[newX][newY].getQuantityEatables().get(type) < MapLocation.arrayToMap(Settings.maxEatables).get(type)
+            && Island.getLocations()[newX][newY].getQuantityEatables().get(type).size() < MapLocation.arrayToMap(Settings.maxEatables).get(type)
             && !Island.getLocations()[newX][newY].isLock){
             Island.getLocations()[newX][newY].isLock = true;
-            Island.getLocations()[newX][newY].getEatables().add(this);
-            MapLocation.addInMap(type, Island.getLocations()[newX][newY].getQuantityEatables());
+            Island.getLocations()[newX][newY].getQuantityEatables().get(type).add(this);
             this.coordinateX = newX;
             this.coordinateY = newY;
-            Island.getLocations()[coordinateX][coordinateY].getEatables().remove(this);
-            MapLocation.removeInMap(type, Island.getLocations()[coordinateX][coordinateY].getQuantityEatables());
+            Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type).remove(this);
             Island.getLocations()[newX][newY].isLock = false;
-            System.out.println("move");
+            //System.out.println("move");
         }
     }
 

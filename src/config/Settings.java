@@ -1,19 +1,22 @@
 package config;
 
+import entity.Eatable;
 import enums.HerbivoreType;
 import enums.PredatorType;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import static entity.Plant.PlantType.PLANT;
 
 public class Settings {
-    public static int xMapIsland = 10;
-    public static int yMapIsland = 10;
+    public static int xMapIsland = 2;
+    public static int yMapIsland = 2;
 
-    public static int minHerbivore = 100;
-    public static int minPredator = 50;
+    public static int minHerbivore = 20;
+    public static int minPredator = 10;
 
     public static Object[][] maxDaysWithoutFood =
             {{PredatorType.WOLF, 8},
@@ -139,7 +142,14 @@ public class Settings {
             {HerbivoreType.BUFFALO, 100f},
             {HerbivoreType.DUCK, 0.15f}};
 
-    public static Map<Enum, Integer> createEatables(){
+    public static Map<Enum, CopyOnWriteArrayList<Eatable>> createEatables(){
+        Map<Enum, CopyOnWriteArrayList<Eatable>> map = new ConcurrentHashMap<>();
+        for (Object[] row : maxEatables){
+            map.put((Enum) row[0],new CopyOnWriteArrayList<Eatable>());
+        }
+        return map;
+    }
+    public static Map<Enum, Integer> createEatablesStatistic(){
         Map<Enum, Integer> map = new HashMap<>();
         for (Object[] row : maxEatables){
             map.put((Enum) row[0], 0);

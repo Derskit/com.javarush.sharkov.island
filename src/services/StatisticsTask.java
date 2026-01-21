@@ -5,7 +5,6 @@ import entity.island.Island;
 import config.Settings;
 
 import java.util.Map;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class StatisticsTask implements Runnable {
 

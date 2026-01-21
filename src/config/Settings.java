@@ -12,27 +12,49 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import static entity.Plant.PlantType.PLANT;
 
 public class Settings {
-    public static int xMapIsland = 2;
-    public static int yMapIsland = 2;
+    public static int xMapIsland = 100;
+    public static int yMapIsland = 20;
 
-    public static int minHerbivore = 20;
-    public static int minPredator = 10;
+    public static int intervalActionsAnimalsInMillisecond = 1000;
+    public static int intervalActionsGrowsPlantInMillisecond = 1000;
+    public static int intervalStatisticsOutputInMillisecond = 1000;
+    public static int intervalCollectingCorpsesInMillisecond = 1000;
+
+    public static String animalExceptionMessage = "The food disappeared from the location before it was eaten!";
+
+    public static Object[][] minEatables =
+            {{PredatorType.WOLF,10},
+            {PredatorType.BOA_CONSTRICTOR, 8},
+            {PredatorType.FOX, 15},
+            {PredatorType.BEAR, 5},
+            {PredatorType.EAGLE, 2},
+            {HerbivoreType.HORSE, 12},
+            {HerbivoreType.DEER, 11},
+            {HerbivoreType.RABBIT, 15},
+            {HerbivoreType.MOUSE, 30},
+            {HerbivoreType.GOAT, 10},
+            {HerbivoreType.SHEEP, 9},
+            {HerbivoreType.WILD_BOAR, 22},
+            {HerbivoreType.BUFFALO, 6},
+            {HerbivoreType.DUCK, 13},
+            {HerbivoreType.CATERPILLAR, 72}};
+
 
     public static Object[][] maxDaysWithoutFood =
             {{PredatorType.WOLF, 8},
             {PredatorType.BOA_CONSTRICTOR, 10},
-            {PredatorType.FOX, 5},
+            {PredatorType.FOX, 11},
             {PredatorType.BEAR, 6},
-            {PredatorType.EAGLE, 4},
+            {PredatorType.EAGLE, 9},
             {HerbivoreType.HORSE, 7},
-            {HerbivoreType.DEER, 5},
-            {HerbivoreType.RABBIT, 4},
-            {HerbivoreType.MOUSE, 5},
+            {HerbivoreType.DEER, 12},
+            {HerbivoreType.RABBIT, 7},
+            {HerbivoreType.MOUSE, 8},
             {HerbivoreType.GOAT, 6},
             {HerbivoreType.SHEEP, 7},
-            {HerbivoreType.WILD_BOAR, 5},
-            {HerbivoreType.BUFFALO, 9},
-            {HerbivoreType.DUCK, 3}};
+            {HerbivoreType.WILD_BOAR, 8},
+            {HerbivoreType.BUFFALO, 12},
+            {HerbivoreType.DUCK, 10}};
 
     public static Object[][] maxEatables =
             {{PredatorType.WOLF,30},

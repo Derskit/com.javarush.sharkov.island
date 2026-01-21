@@ -1,6 +1,7 @@
 package repository;
 
 import config.Settings;
+import entity.Animal;
 import entity.Plant;
 import entity.herbivore.*;
 import entity.predator.*;
@@ -30,14 +31,7 @@ public final class Fabrics {
             case EAGLE -> predator = new Eagle();
             case BOA_CONSTRICTOR -> predator = new BoaConstrictor();
         }
-        predator.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
-        predator.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
-        predator.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
-        predator.setMaxDayWithoutFood((int) Settings.maxDaysWithoutFood[ArraySearch.externalIndex(Settings.maxDaysWithoutFood, type, 0)][1]);
-        predator.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
-        predator.setType(type);
-
-        return predator;
+        return (Predator) setParameters(predator, type);
     }
 
     public Herbivores createHerbivores(HerbivoreType type) {
@@ -55,13 +49,16 @@ public final class Fabrics {
             case BUFFALO -> herbivores = new Buffalo();
             case CATERPILLAR -> herbivores = new Caterpillar();
         }
-        herbivores.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
-        herbivores.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
-        herbivores.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
-        herbivores.setMaxDayWithoutFood((int) Settings.maxDaysWithoutFood[ArraySearch.externalIndex(Settings.maxDaysWithoutFood, type, 0)][1]);
-        herbivores.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
-        herbivores.setType(type);
+        return (Herbivores) setParameters(herbivores, type);
+    }
+    private Animal setParameters (Animal animal, Enum type){
+        animal.setWeight((Float) Settings.weights[ArraySearch.externalIndex(Settings.weights, type, 0)][1]);
+        animal.setSaturationWeight((Float) Settings.foodWeight[ArraySearch.externalIndex(Settings.foodWeight, type, 0)][1]);
+        animal.setSpeed((int) Settings.speeds[ArraySearch.externalIndex(Settings.speeds, type, 0)][1]);
+        animal.setMaxDayWithoutFood((int) Settings.maxDaysWithoutFood[ArraySearch.externalIndex(Settings.maxDaysWithoutFood, type, 0)][1]);
+        animal.setProbabilitiesOfEating(ArraySort.sort((Object[][]) Settings.probabilitiesOfEating[ArraySearch.externalIndex(Settings.probabilitiesOfEating, type, 0)][1], 1));
+        animal.setType(type);
 
-        return herbivores;
+        return animal;
     }
 }

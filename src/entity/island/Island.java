@@ -1,12 +1,16 @@
 package entity.island;
 
 import entity.Animal;
+import entity.herbivore.Herbivores;
+import entity.predator.Predator;
 import enums.HerbivoreType;
 import enums.PredatorType;
 import util.MapLocation;
 import repository.Fabrics;
 import util.Random;
 import config.Settings;
+
+import java.util.Map;
 
 public class Island {
 
@@ -26,20 +30,24 @@ public class Island {
                 locations[i][j] = new Location();
             }
         }
-        for (int i = 0; i < Settings.minHerbivore + Settings.minPredator; i++) {
-            int rndX = Random.getRandom(x);
-            int rndY = Random.getRandom(y);
-            if (i < Settings.minHerbivore) {
-                Animal entity = Fabrics.getFabric().createHerbivores(HerbivoreType.randomHerbivoreType());
-                entity.setX(rndX);
-                entity.setY(rndY);
-                locations[rndX][rndY].getQuantityEatables().get(entity.getType()).add(entity);
-            } else {
-                Animal entity = Fabrics.getFabric().createPredator(PredatorType.randomPredatorType());
-                entity.setX(rndX);
-                entity.setY(rndY);
-                locations[rndX][rndY].getQuantityEatables().get(entity.getType()).add(entity);
+        Map<Enum, Integer> animalsWhenCreating = MapLocation.arrayToMap(Settings.minEatables);
+        for (HerbivoreType animal:HerbivoreType.values()){
+            for (int i = 0; i < animalsWhenCreating.get(animal); i++) {
+                animalAccommodation(Fabrics.getFabric().createHerbivores(animal));
             }
         }
+        for (PredatorType animal:PredatorType.values()){
+            for (int i = 0; i < animalsWhenCreating.get(animal); i++) {
+                animalAccommodation(Fabrics.getFabric().createPredator(animal));
+            }
+        }
+    }
+
+    private void animalAccommodation(Animal entity) {
+        int rndX = Random.getRandom(Settings.xMapIsland);
+        int rndY = Random.getRandom(Settings.yMapIsland);
+        entity.setX(rndX);
+        entity.setY(rndY);
+        locations[rndX][rndY].getQuantityEatables().get(entity.getType()).add(entity);
     }
 }

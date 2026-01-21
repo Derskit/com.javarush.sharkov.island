@@ -5,7 +5,7 @@ import entity.island.Location;
 
 public interface Eatable {
     Enum type = null;
-
+    boolean isDead = false;
 
     int coordinateX = 0;
     int coordinateY = 0;
@@ -26,5 +26,8 @@ public interface Eatable {
 
     default float getWeight() {
         return weight;
+    }
+    default boolean getIsDead(){
+        return isDead;
     }
 }

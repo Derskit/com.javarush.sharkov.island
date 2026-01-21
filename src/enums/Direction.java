@@ -19,7 +19,7 @@ public enum Direction {
         this.dirY = directionY;
     }
 
-    public static Direction rnd(){
+    public static Direction rnd() {
         return VALUES[Random.getRandom(VALUES.length)];
     }
 }

@@ -6,6 +6,7 @@ import entity.island.Island;
 import entity.island.Location;
 import entity.predator.Predator;
 import enums.PredatorType;
+import exception.AnimalEatingException;
 import repository.Fabrics;
 import util.MapLocation;
 import config.Settings;
@@ -34,18 +35,6 @@ public abstract class Animal implements Eatable {
 
     float weight = 0;
 
-    public int getSpeed() {
-        return speed;
-    }
-
-    public float getSaturationWeight() {
-        return saturationWeight;
-    }
-
-    public Object[][] getProbabilitiesOfEating() {
-        return probabilitiesOfEating;
-    }
-
     public void setSpeed(int speed) {
         this.speed = speed;
     }
@@ -64,17 +53,18 @@ public abstract class Animal implements Eatable {
 
     public void eat() {
         isEat = false;
-        //System.out.println("eating");
-        for (int j = probabilitiesOfEating.length-1; j >= 0; j--) {
+        for (int j = probabilitiesOfEating.length - 1; j >= 0; j--) {
             if (isEat) {
                 break;
             }
             Enum typeFood = (Enum) probabilitiesOfEating[j][0];
             for (int i = 0; i < Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).size(); i++) {
                 int probabilityEat = (int) probabilitiesOfEating[j][1];
-                if (Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).size() > 0){
-                    if (typeFood.equals(Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).get(i).getType())) {
-                        if (100-probabilityEat <= Random.getRandom(100)) {
+                try {
+                    if (Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).size() > 0
+                            && typeFood.equals(Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).get(i).getType())) {
+                        if (100 - probabilityEat <= Random.getRandom(100)) {
+
                             weightFood += Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).get(i).getWeight();
                             Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).remove(i);
                             if (weightFood >= saturationWeight) {
@@ -83,38 +73,36 @@ public abstract class Animal implements Eatable {
                             } else {
                                 dayWithoutFood += 1;
                             }
-                            //System.out.println("eat");
-                        } else {
-                            dayWithoutFood += 1;
                         }
                         isEat = true;
                         break;
                     }
+                } catch (Exception e) {
+                    throw new AnimalEatingException(Settings.animalExceptionMessage);
                 }
             }
         }
-        if (maxDayWithoutFood >= dayWithoutFood) {
+        if (!isEat){
+            dayWithoutFood += 1;
+        }
+        if (maxDayWithoutFood <= dayWithoutFood) {
             isDead = true;
         }
     }
 
     public void reproduction() {
-        //System.out.println("reproduction zxc");
         if (Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type).size() < MapLocation.arrayToMap(Settings.maxEatables).get(type)
-            && Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type).size() > 1) {
-
+                && Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type).size() > 1 && dayWithoutFood < maxDayWithoutFood/2) {
             Island.getLocations()[coordinateX][coordinateY].isLock = true;
             Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type)
                     .add(this instanceof Predator ?
                             Fabrics.getFabric().createPredator((PredatorType) type) :
                             Fabrics.getFabric().createHerbivores((HerbivoreType) type));
             Island.getLocations()[coordinateX][coordinateY].isLock = false;
-            //System.out.println("reproduction");
         }
     }
 
     public void move() {
-        //System.out.println("moving");
         int motions = Random.getRandom(speed);
         Direction direction = Direction.rnd();
 
@@ -122,15 +110,14 @@ public abstract class Animal implements Eatable {
         int newY = coordinateY + direction.dirY * motions;
 
         if (!(newX < 0 || newX >= Settings.xMapIsland || newY < 0 || newY >= Settings.yMapIsland)
-            && Island.getLocations()[newX][newY].getQuantityEatables().get(type).size() < MapLocation.arrayToMap(Settings.maxEatables).get(type)
-            && !Island.getLocations()[newX][newY].isLock){
+                && Island.getLocations()[newX][newY].getQuantityEatables().get(type).size() < MapLocation.arrayToMap(Settings.maxEatables).get(type)
+                && !Island.getLocations()[newX][newY].isLock) {
             Island.getLocations()[newX][newY].isLock = true;
             Island.getLocations()[newX][newY].getQuantityEatables().get(type).add(this);
             this.coordinateX = newX;
             this.coordinateY = newY;
             Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(type).remove(this);
             Island.getLocations()[newX][newY].isLock = false;
-            //System.out.println("move");
         }
     }
 

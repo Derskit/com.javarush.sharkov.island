@@ -13,27 +13,27 @@ import config.Settings;
 import util.Random;
 
 public abstract class Animal implements Eatable {
-    int speed;
+    private int speed;
 
-    float saturationWeight;
+    private float saturationWeight;
 
-    Object[][] probabilitiesOfEating;
+    private Object[][] probabilitiesOfEating;
 
-    int dayWithoutFood = 0;
-    int maxDayWithoutFood;
+    private int dayWithoutFood = 0;
+    private int maxDayWithoutFood;
 
     private boolean isEat = false;
 
     private float weightFood = 0;
 
-    Enum type = null;
+    private Enum type = null;
 
-    boolean isDead = false;
+    private boolean isDead = false;
 
-    int coordinateX = 0;
-    int coordinateY = 0;
+    private int coordinateX = 0;
+    private int coordinateY = 0;
 
-    float weight = 0;
+    private float weight = 0;
 
     public void setSpeed(int speed) {
         this.speed = speed;
@@ -54,9 +54,7 @@ public abstract class Animal implements Eatable {
     public void eat() {
         isEat = false;
         for (int j = probabilitiesOfEating.length - 1; j >= 0; j--) {
-            if (isEat) {
-                break;
-            }
+            if (isEat) {break;}
             Enum typeFood = (Enum) probabilitiesOfEating[j][0];
             for (int i = 0; i < Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).size(); i++) {
                 int probabilityEat = (int) probabilitiesOfEating[j][1];
@@ -64,7 +62,6 @@ public abstract class Animal implements Eatable {
                     if (Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).size() > 0
                             && typeFood.equals(Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).get(i).getType())) {
                         if (100 - probabilityEat <= Random.getRandom(100)) {
-
                             weightFood += Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).get(i).getWeight();
                             Island.getLocations()[coordinateX][coordinateY].getQuantityEatables().get(typeFood).remove(i);
                             if (weightFood >= saturationWeight) {

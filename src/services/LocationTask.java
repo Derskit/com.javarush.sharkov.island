@@ -6,8 +6,6 @@ import entity.Plant;
 import entity.island.Island;
 import entity.island.Location;
 
-import java.util.concurrent.CopyOnWriteArrayList;
-
 public class LocationTask implements Runnable {
 
     private Integer x;

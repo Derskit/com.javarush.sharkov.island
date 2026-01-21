@@ -46,8 +46,10 @@ public class Island {
     private void animalAccommodation(Animal entity) {
         int rndX = Random.getRandom(Settings.xMapIsland);
         int rndY = Random.getRandom(Settings.yMapIsland);
-        entity.setX(rndX);
-        entity.setY(rndY);
-        locations[rndX][rndY].getQuantityEatables().get(entity.getType()).add(entity);
+        if (locations[rndX][rndY].getQuantityEatables().get(entity.getType()).size() < MapLocation.arrayToMap(Settings.maxEatables).get(entity.getType())){
+            entity.setX(rndX);
+            entity.setY(rndY);
+            locations[rndX][rndY].getQuantityEatables().get(entity.getType()).add(entity);
+        }
     }
 }

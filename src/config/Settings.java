@@ -23,21 +23,21 @@ public class Settings {
     public static String animalExceptionMessage = "The food disappeared from the location before it was eaten!";
 
     public static Object[][] minEatables =
-            {{PredatorType.WOLF,10},
-            {PredatorType.BOA_CONSTRICTOR, 8},
-            {PredatorType.FOX, 15},
-            {PredatorType.BEAR, 5},
-            {PredatorType.EAGLE, 2},
-            {HerbivoreType.HORSE, 12},
-            {HerbivoreType.DEER, 11},
-            {HerbivoreType.RABBIT, 15},
+            {{PredatorType.WOLF,20},
+            {PredatorType.BOA_CONSTRICTOR, 18},
+            {PredatorType.FOX, 25},
+            {PredatorType.BEAR, 20},
+            {PredatorType.EAGLE, 32},
+            {HerbivoreType.HORSE, 22},
+            {HerbivoreType.DEER, 31},
+            {HerbivoreType.RABBIT, 25},
             {HerbivoreType.MOUSE, 30},
-            {HerbivoreType.GOAT, 10},
-            {HerbivoreType.SHEEP, 9},
+            {HerbivoreType.GOAT, 18},
+            {HerbivoreType.SHEEP, 19},
             {HerbivoreType.WILD_BOAR, 22},
-            {HerbivoreType.BUFFALO, 6},
-            {HerbivoreType.DUCK, 13},
-            {HerbivoreType.CATERPILLAR, 72}};
+            {HerbivoreType.BUFFALO, 22},
+            {HerbivoreType.DUCK, 23},
+            {HerbivoreType.CATERPILLAR, 40}};
 
 
     public static Object[][] maxDaysWithoutFood =
@@ -80,40 +80,54 @@ public class Settings {
                     {HerbivoreType.RABBIT, 60}, {HerbivoreType.MOUSE, 80},
                     {HerbivoreType.GOAT, 60}, {HerbivoreType.SHEEP, 70},
                     {HerbivoreType.WILD_BOAR, 15}, {HerbivoreType.DUCK, 40}}},
+
             {PredatorType.BOA_CONSTRICTOR, new Object[][]{
                     {PredatorType.FOX, 15}, {HerbivoreType.RABBIT, 20},
                     {HerbivoreType.MOUSE, 40}, {HerbivoreType.DUCK, 10}}},
+
             {PredatorType.FOX, new Object[][]{
                     {HerbivoreType.RABBIT, 70}, {HerbivoreType.MOUSE, 90},
                     {HerbivoreType.DUCK, 60}, {HerbivoreType.CATERPILLAR, 40}}},
+
             {PredatorType.BEAR, new Object[][]{
                     {PredatorType.BOA_CONSTRICTOR, 80}, {HerbivoreType.HORSE, 40},
                     {HerbivoreType.DEER, 80}, {HerbivoreType.RABBIT, 80},
                     {HerbivoreType.MOUSE, 90}, {HerbivoreType.GOAT, 70},
                     {HerbivoreType.SHEEP, 70}, {HerbivoreType.WILD_BOAR, 50},
                     {HerbivoreType.BUFFALO, 20}, {HerbivoreType.DUCK, 10}}},
+
             {PredatorType.EAGLE, new Object[][]{
                     {PredatorType.FOX, 10}, {HerbivoreType.RABBIT, 90},
                     {HerbivoreType.MOUSE, 90}, {HerbivoreType.DUCK, 80}}},
+
             {HerbivoreType.HORSE, new Object[][]{
                     {PLANT, 100}}},
+
             {HerbivoreType.DEER, new Object[][]{
                     {PLANT, 100}}},
+
             {HerbivoreType.RABBIT, new Object[][]{
                     {PLANT, 100}}},
+
             {HerbivoreType.MOUSE, new Object[][]{
                     {PLANT, 100}, {HerbivoreType.CATERPILLAR, 90}}},
+
             {HerbivoreType.GOAT, new Object[][]{
                     {PLANT, 100}}},
+
             {HerbivoreType.SHEEP, new Object[][]{
                     {PLANT, 100}}},
+
             {HerbivoreType.WILD_BOAR, new Object[][]{
                     {PLANT, 100}, {HerbivoreType.CATERPILLAR, 90},
                     {HerbivoreType.MOUSE, 90}}},
+
             {HerbivoreType.BUFFALO, new Object[][]{
                     {PLANT, 100}}},
+
             {HerbivoreType.DUCK, new Object[][]{
                     {PLANT, 100}, {HerbivoreType.CATERPILLAR, 90}}},
+
             {HerbivoreType.CATERPILLAR, new Object[][]{
                     {PLANT, 100}}}};
 
@@ -167,7 +181,7 @@ public class Settings {
     public static Map<Enum, CopyOnWriteArrayList<Eatable>> createEatables(){
         Map<Enum, CopyOnWriteArrayList<Eatable>> map = new ConcurrentHashMap<>();
         for (Object[] row : maxEatables){
-            map.put((Enum) row[0],new CopyOnWriteArrayList<Eatable>());
+            map.put((Enum) row[0],new CopyOnWriteArrayList<>());
         }
         return map;
     }
